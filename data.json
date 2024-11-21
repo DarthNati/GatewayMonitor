@@ -1,7 +1,7 @@
 {
   "incidents": [
     {
-      "gatewayName": "Gateway1",
+      "gatewayName": "Gateway122",
       "incidentType": "Collect",
       "specificMethods": [
         "gaga"
