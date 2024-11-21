@@ -79,6 +79,46 @@
       ],
       "fromTime": "2024-11-25T16:02",
       "toTime": "2024-11-28T16:02"
+    },
+    {
+      "reportedBy": "Gateway",
+      "gatewayName": "Gateway2",
+      "incidentType": "Disburse",
+      "specificMethods": [
+        "hdhd"
+      ],
+      "fromTime": "2024-11-25T16:02",
+      "toTime": "2024-11-28T16:02"
+    },
+    {
+      "reportedBy": "Gateway",
+      "gatewayName": "Gateway2",
+      "incidentType": "Disburse",
+      "specificMethods": [
+        "hdhd"
+      ],
+      "fromTime": "2024-11-25T16:02",
+      "toTime": "2024-11-28T16:02"
+    },
+    {
+      "reportedBy": "Gateway",
+      "gatewayName": "Gateway2",
+      "incidentType": "Disburse",
+      "specificMethods": [
+        "rqrq"
+      ],
+      "fromTime": "2024-11-25T16:02",
+      "toTime": "2024-11-28T16:02"
+    },
+    {
+      "reportedBy": "Gateway",
+      "gatewayName": "Gateway2",
+      "incidentType": "Disburse",
+      "specificMethods": [
+        "bdbd"
+      ],
+      "fromTime": "2024-11-25T16:02",
+      "toTime": "2024-11-28T16:02"
     }
   ]
 }
