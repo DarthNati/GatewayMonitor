@@ -2,123 +2,13 @@
   "incidents": [
     {
       "reportedBy": "Gateway",
-      "gatewayName": "Gateway1",
-      "incidentType": "Disburse",
-      "specificMethods": [
-        "affa"
-      ],
-      "fromTime": "2024-11-21T15:30",
-      "toTime": "2024-11-30T15:30"
-    },
-    {
-      "reportedBy": "Gateway",
-      "gatewayName": "Gateway1",
-      "incidentType": "Disburse",
-      "specificMethods": [
-        "affa"
-      ],
-      "fromTime": "2024-11-21T15:30",
-      "toTime": "2024-11-30T15:30"
-    },
-    {
-      "reportedBy": "Monitor",
-      "gatewayName": "Gateway1",
-      "incidentType": "Disburse",
-      "specificMethods": [
-        "affa"
-      ],
-      "fromTime": "2024-11-21T15:30",
-      "toTime": "2024-11-30T15:30"
-    },
-    {
-      "reportedBy": "Gateway",
-      "gatewayName": "Gateway1",
-      "incidentType": "Disburse",
-      "specificMethods": [
-        "affa"
-      ],
-      "fromTime": "2024-11-21T15:30",
-      "toTime": "2024-11-30T15:30"
-    },
-    {
-      "reportedBy": "Gateway",
       "gatewayName": "Gateway2",
       "incidentType": "Disburse",
       "specificMethods": [
-        "affa"
+        "gs"
       ],
-      "fromTime": "2024-11-21T15:30",
-      "toTime": "2024-11-30T15:30"
-    },
-    {
-      "reportedBy": "Monitor",
-      "gatewayName": "Gateway2",
-      "incidentType": "Disburse",
-      "specificMethods": [
-        "affa"
-      ],
-      "fromTime": "2024-11-26T15:30",
-      "toTime": "2024-11-30T23:30"
-    },
-    {
-      "reportedBy": "Monitor",
-      "gatewayName": "Gateway2",
-      "incidentType": "Disburse",
-      "specificMethods": [
-        "affa"
-      ],
-      "fromTime": "2024-11-22T15:30",
-      "toTime": "2024-11-30T23:30"
-    },
-    {
-      "reportedBy": "Monitor",
-      "gatewayName": "Gateway2",
-      "incidentType": "Disburse",
-      "specificMethods": [
-        "affa"
-      ],
-      "fromTime": "2024-11-22T15:30",
-      "toTime": "2024-12-01T23:30"
-    },
-    {
-      "reportedBy": "Monitor",
-      "gatewayName": "Gateway2",
-      "incidentType": "Disburse",
-      "specificMethods": [
-        "affa"
-      ],
-      "fromTime": "2024-11-22T15:30",
-      "toTime": "2024-12-01T23:30"
-    },
-    {
-      "reportedBy": "Monitor",
-      "gatewayName": "Gateway2",
-      "incidentType": "Disburse",
-      "specificMethods": [
-        "affa"
-      ],
-      "fromTime": "2024-12-01T15:30",
-      "toTime": "2024-12-01T23:30"
-    },
-    {
-      "reportedBy": "Monitor",
-      "gatewayName": "Gateway2",
-      "incidentType": "Disburse",
-      "specificMethods": [
-        "affa"
-      ],
-      "fromTime": "2024-12-01T15:30",
-      "toTime": "2024-12-01T23:30"
-    },
-    {
-      "reportedBy": "Monitor",
-      "gatewayName": "Gateway2",
-      "incidentType": "Disburse",
-      "specificMethods": [
-        "affa"
-      ],
-      "fromTime": "2024-12-02T15:30",
-      "toTime": "2024-12-01T23:30"
+      "fromTime": "2024-11-21T15:50",
+      "toTime": "2024-11-23T15:50"
     }
   ]
 }
