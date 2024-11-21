@@ -59,6 +59,16 @@
       ],
       "fromTime": "2024-11-20T14:34",
       "toTime": "2024-11-26T14:34"
+    },
+    {
+      "reportedBy": "Gateway",
+      "gatewayName": "Gateway2",
+      "incidentType": "Collect",
+      "specificMethods": [
+        "11"
+      ],
+      "fromTime": "2024-11-26T14:53",
+      "toTime": "2024-11-25T14:53"
     }
   ]
 }
