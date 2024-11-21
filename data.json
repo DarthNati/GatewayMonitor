@@ -1,13 +1,13 @@
 {
   "incidents": [
     {
-      "gatewayName": "Gateway122",
-      "incidentType": "Collect",
+      "gatewayName": "Gateway1",
+      "incidentType": "Disburse",
       "specificMethods": [
-        "gaga"
+        "11"
       ],
-      "fromTime": "2024-11-17T11:57",
-      "toTime": "2024-11-19T11:57"
+      "fromTime": "2024-11-07T13:45",
+      "toTime": "2024-11-04T13:45"
     }
   ]
 }
