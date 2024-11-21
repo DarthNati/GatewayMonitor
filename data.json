@@ -19,6 +19,16 @@
       ],
       "fromTime": "2024-11-21T15:30",
       "toTime": "2024-11-30T15:30"
+    },
+    {
+      "reportedBy": "Monitor",
+      "gatewayName": "Gateway1",
+      "incidentType": "Disburse",
+      "specificMethods": [
+        "affa"
+      ],
+      "fromTime": "2024-11-21T15:30",
+      "toTime": "2024-11-30T15:30"
     }
   ]
 }
