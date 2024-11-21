@@ -1,0 +1,13 @@
+{
+  "incidents": [
+    {
+      "gatewayName": "Gateway1",
+      "incidentType": "Collect",
+      "specificMethods": [
+        "gaga"
+      ],
+      "fromTime": "2024-11-17T11:57",
+      "toTime": "2024-11-19T11:57"
+    }
+  ]
+}
