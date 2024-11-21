@@ -1,1 +1,15 @@
-
+{
+  "incidents": [
+    {
+      "reportedBy": "Gateway",
+      "gatewayName": "Gateway1",
+      "incidentType": "Disburse",
+      "specificMethods": [
+        "ffa_fafa",
+        "fafaa_faaa"
+      ],
+      "fromTime": "2024-11-21T13:55",
+      "toTime": "2024-11-25T13:55"
+    }
+  ]
+}
