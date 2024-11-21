@@ -5,10 +5,10 @@
       "gatewayName": "Gateway1",
       "incidentType": "Disburse",
       "specificMethods": [
-        "hdfhdf"
+        "gagg"
       ],
-      "fromTime": "2024-11-19T15:08",
-      "toTime": "2024-11-23T15:08"
+      "fromTime": "2024-09-10T15:15",
+      "toTime": "2024-11-23T15:15"
     }
   ]
 }
