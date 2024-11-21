@@ -142,6 +142,16 @@
       ],
       "fromTime": "2024-11-22T16:28",
       "toTime": "2024-11-27T16:28"
+    },
+    {
+      "reportedBy": "Monitor",
+      "gatewayName": "Gateway2",
+      "incidentType": "Issuing",
+      "specificMethods": [
+        "gagga"
+      ],
+      "fromTime": "2024-11-26T16:30",
+      "toTime": "2025-01-21T16:30"
     }
   ]
 }
