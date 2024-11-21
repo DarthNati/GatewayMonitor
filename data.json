@@ -119,6 +119,16 @@
       ],
       "fromTime": "2024-11-25T16:02",
       "toTime": "2024-11-28T16:02"
+    },
+    {
+      "reportedBy": "Gateway",
+      "gatewayName": "Gateway2",
+      "incidentType": "Disburse",
+      "specificMethods": [
+        "gaggag"
+      ],
+      "fromTime": "2024-11-22T16:26",
+      "toTime": "2024-11-29T16:26"
     }
   ]
 }
