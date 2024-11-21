@@ -19,6 +19,16 @@
       ],
       "fromTime": "2024-11-13T14:22",
       "toTime": "2024-11-12T14:22"
+    },
+    {
+      "reportedBy": "Monitor",
+      "gatewayName": "Gateway1",
+      "incidentType": "Disburse",
+      "specificMethods": [
+        "aa"
+      ],
+      "fromTime": "2024-11-13T14:22",
+      "toTime": "2024-11-12T14:22"
     }
   ]
 }
