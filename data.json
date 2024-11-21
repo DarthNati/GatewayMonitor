@@ -1,15 +1,31 @@
 {
   "incidents": [
     {
-      "reportedBy": "Gateway",
       "gatewayName": "Gateway1",
       "incidentType": "Disburse",
       "specificMethods": [
-        "ffa_fafa",
-        "fafaa_faaa"
+        "11"
       ],
-      "fromTime": "2024-11-21T13:55",
-      "toTime": "2024-11-25T13:55"
+      "fromTime": "2024-11-07T13:45",
+      "toTime": "2024-11-04T13:45"
+    },
+    {
+      "gatewayName": "Gateway2",
+      "incidentType": "Disburse",
+      "specificMethods": [
+        "11"
+      ],
+      "fromTime": "2024-11-07T13:45",
+      "toTime": "2024-11-04T13:45"
+    },
+    {
+      "gatewayName": "Gateway2",
+      "incidentType": "Disburse",
+      "specificMethods": [
+        "11"
+      ],
+      "fromTime": "2024-11-07T13:45",
+      "toTime": "2024-11-04T13:45"
     }
   ]
 }
