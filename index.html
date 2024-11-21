@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gateway Stability Dashy</title>
+    <title>Gateway Stability Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
@@ -80,121 +81,128 @@
                     <option value="">Select Gateway</option>
                 </select>
                 <canvas id="incidentChart" class="mt-4"></canvas>
+                <button id="downloadData" class="btn btn-success mt-3" onclick="downloadData()">Download Data as JSON</button>
             </div>
         </div>
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    // Initialize the incidents data in localStorage if it's not already present
-    if (!localStorage.getItem('incidents')) {
-        localStorage.setItem('incidents', JSON.stringify([]));  // Store an empty array if no data
+// Load the initial incidents data from the server (or local if not present)
+let incidents = [];
+$.getJSON('/data.json', function(data) {
+    incidents = data.incidents || [];
+    loadGatewayNames();
+});
+
+// Switch tabs function
+function switchTab(tab) {
+    document.getElementById('tab-1-content').style.display = 'none';
+    document.getElementById('tab-2-content').style.display = 'none';
+    document.getElementById(tab + '-content').style.display = 'block';
+
+    if (tab === 'tab-2') {
+        loadGatewayNames(); // Load gateway names when switching to the dashboard
     }
+}
 
-    // Switch tabs function
-    function switchTab(tab) {
-        document.getElementById('tab-1-content').style.display = 'none';
-        document.getElementById('tab-2-content').style.display = 'none';
-        document.getElementById(tab + '-content').style.display = 'block';
+// Function to load gateway names from stored incidents in localStorage
+function loadGatewayNames() {
+    const gateways = [...new Set(incidents.map(incident => incident.gatewayName))];
+    const gatewaySelect = document.getElementById('gatewaySelect');
+    
+    // Clear existing options
+    gatewaySelect.innerHTML = '<option value="">Select Gateway</option>';
 
-        if (tab === 'tab-2') {
-            loadGatewayNames(); // Load gateway names when switching to the dashboard
+    // Add gateway options to the select dropdown
+    gateways.forEach(gateway => {
+        const option = document.createElement('option');
+        option.value = gateway;
+        option.textContent = gateway;
+        gatewaySelect.appendChild(option);
+    });
+}
+
+// Event listener for the form submission
+document.getElementById('incidentForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Collect form data
+    const gatewayName = document.getElementById('gatewayName').value;
+    const incidentType = document.getElementById('incidentType').value;
+    const specificMethods = document.getElementById('specificMethods').value.split(',');
+    const fromTime = document.getElementById('fromTime').value;
+    const toTime = document.getElementById('toTime').value;
+
+    // Prepare data to be added
+    const newIncident = {
+        gatewayName,
+        incidentType,
+        specificMethods,
+        fromTime,
+        toTime,
+    };
+
+    // Add the new incident to the incidents array
+    incidents.push(newIncident);
+
+    // Save the updated incidents to the JSON file (simulated as we're using the client-side)
+    saveToJSONFile(incidents);
+
+    // Notify the user
+    alert('Incident added successfully!');
+    loadGatewayNames(); // Refresh the gateway select dropdown
+});
+
+// Save the incidents data to a downloadable JSON file
+function saveToJSONFile(data) {
+    const blob = new Blob([JSON.stringify({ incidents: data }, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'data.json';
+    link.click();
+}
+
+// Update the Dashboard with Gateway data
+function updateDashboard() {
+    const gatewayName = document.getElementById('gatewaySelect').value;
+    if (gatewayName) {
+        const filteredIncidents = incidents.filter(incident => incident.gatewayName === gatewayName);
+        renderTimelineChart(filteredIncidents);
+    }
+}
+
+// Render the timeline chart using Chart.js
+function renderTimelineChart(incidents) {
+    const dates = [];
+    const counts = [];
+    incidents.forEach(incident => {
+        const incidentDate = new Date(incident.fromTime).toLocaleDateString();
+        const existingDateIndex = dates.indexOf(incidentDate);
+        if (existingDateIndex !== -1) {
+            counts[existingDateIndex]++;
+        } else {
+            dates.push(incidentDate);
+            counts.push(1);
         }
-    }
-
-    // Function to load gateway names from stored incidents in localStorage
-    function loadGatewayNames() {
-        const incidents = JSON.parse(localStorage.getItem('incidents'));
-        const gateways = [...new Set(incidents.map(incident => incident.gatewayName))];
-        const gatewaySelect = document.getElementById('gatewaySelect');
-        
-        // Clear existing options
-        gatewaySelect.innerHTML = '<option value="">Select Gateway</option>';
-
-        // Add gateway options to the select dropdown
-        gateways.forEach(gateway => {
-            const option = document.createElement('option');
-            option.value = gateway;
-            option.textContent = gateway;
-            gatewaySelect.appendChild(option);
-        });
-    }
-
-    // Event listener for the form submission
-    document.getElementById('incidentForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        // Collect form data
-        const gatewayName = document.getElementById('gatewayName').value;
-        const incidentType = document.getElementById('incidentType').value;
-        const specificMethods = document.getElementById('specificMethods').value.split(',');
-        const fromTime = document.getElementById('fromTime').value;
-        const toTime = document.getElementById('toTime').value;
-
-        // Prepare data to be added
-        const newIncident = {
-            gatewayName,
-            incidentType,
-            specificMethods,
-            fromTime,
-            toTime,
-        };
-
-        // Fetch existing incidents from localStorage
-        const incidents = JSON.parse(localStorage.getItem('incidents'));
-        incidents.push(newIncident);
-
-        // Save updated incidents array back to localStorage
-        localStorage.setItem('incidents', JSON.stringify(incidents));
-
-        // Notify the user
-        alert('Incident added successfully!');
-        loadGatewayNames(); // Refresh the gateway select dropdown
     });
 
-    // Update the Dashboard with Gateway data
-    function updateDashboard() {
-        const gatewayName = document.getElementById('gatewaySelect').value;
-        if (gatewayName) {
-            // Fetch incidents from localStorage
-            const incidents = JSON.parse(localStorage.getItem('incidents'));
-            const filteredIncidents = incidents.filter(incident => incident.gatewayName === gatewayName);
-            renderTimelineChart(filteredIncidents);
-        }
-    }
+    const ctx = document.getElementById('incidentChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [{
+                label: 'Incidents Over Time',
+                data: counts,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+    });
+}
 
-    // Render the timeline chart using Chart.js
-    function renderTimelineChart(incidents) {
-        const dates = [];
-        const counts = [];
-        incidents.forEach(incident => {
-            const incidentDate = new Date(incident.fromTime).toLocaleDateString();
-            const existingDateIndex = dates.indexOf(incidentDate);
-            if (existingDateIndex !== -1) {
-                counts[existingDateIndex]++;
-            } else {
-                dates.push(incidentDate);
-                counts.push(1);
-            }
-        });
-
-        const ctx = document.getElementById('incidentChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: dates,
-                datasets: [{
-                    label: 'Incidents Over Time',
-                    data: counts,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 2,
-                    fill: false,
-                }],
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    x: {
-                        title: {
-                            display: true
+</script>
+</body>
+</html>
