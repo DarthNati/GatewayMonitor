@@ -1,1 +1,15 @@
-
+{
+  "incidents": [
+    {
+      "incidentTypeRadio": "Expected",
+      "reportedBy": "Gateway",
+      "gatewayName": "Gateway1",
+      "incidentType": "Disburse",
+      "specificMethods": [
+        "gagg"
+      ],
+      "fromTime": "2024-11-26T14:21",
+      "toTime": "2024-11-27T14:21"
+    }
+  ]
+}
