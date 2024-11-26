@@ -9,14 +9,83 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
+            background-color: #1f1f1f;
+            color: #ffffff;
         }
         .container {
-            max-width: 800px;
-            margin-top: 50px;
+            max-width: 900px;
+            margin-top: 60px;
+        }
+        h1 {
+            color: #fff;
+        }
+        .nav-pills .nav-link {
+            background-color: #343a40;
+            color: #fff;
+            border-radius: 50px;
+        }
+        .nav-pills .nav-link.active {
+            background-color: #007bff;
         }
         .tabs {
+            margin-top: 30px;
+        }
+        .tab-content {
+            background-color: #2c2f38;
+            padding: 30px;
+            border-radius: 8px;
+        }
+        .form-label {
+            font-weight: 500;
+        }
+        .form-select, .form-control {
+            border-radius: 8px;
+            background-color: #444c56;
+            border: 1px solid #555;
+            color: #fff;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #555;
+            border-color: #007bff;
+            color: #fff;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+        .card {
+            background-color: #2c2f38;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #555;
+            margin-bottom: 20px;
+        }
+        .card-title {
+            font-weight: 500;
+        }
+        .mt-4 {
             margin-top: 20px;
+        }
+        canvas {
+            border-radius: 8px;
+            background-color: #343a40;
         }
     </style>
 </head>
@@ -31,7 +100,7 @@
                 <a class="nav-link active" id="tab-1" href="#tab-1-content" onclick="switchTab('tab-1')">Insert Incident</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tab-2" href="#tab-2-content" onclick="switchTab('tab-2')">Dashboard</a>
+                <a class="nav-link" id="tab-2" href="#tab-2" onclick="switchTab('tab-2')">Reports</a>
             </li>
         </ul>
 
@@ -39,6 +108,30 @@
         <div id="tab-1-content" class="tab-content mt-3">
             <div class="tab-pane active">
                 <form id="incidentForm">
+                    <!-- New Incident Type (Radio Buttons) -->
+                    <div class="mb-3">
+                        <label class="form-label">Incident Type</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="incidentTypeRadio" id="expectedIncident" value="Expected" required>
+                            <label class="form-check-label" for="expectedIncident">Expected</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="incidentTypeRadio" id="unexpectedIncident" value="Unexpected" required>
+                            <label class="form-check-label" for="unexpectedIncident">Unexpected</label>
+                        </div>
+                    </div>
+
+                    <!-- Reported By -->
+                    <div class="mb-3">
+                        <label for="reportedBy" class="form-label">Reported By</label>
+                        <select id="reportedBy" class="form-select" required>
+                            <option value="">Select Reporter</option>
+                            <option value="Gateway">Gateway</option>
+                            <option value="Monitor">Monitor</option>
+                        </select>
+                    </div>
+
+                    <!-- Gateway Name -->
                     <div class="mb-3">
                         <label for="gatewayName" class="form-label">Gateway Name</label>
                         <select id="gatewayName" class="form-select" required>
@@ -48,6 +141,8 @@
                             <option value="Gateway3">Gateway3</option>
                         </select>
                     </div>
+
+                    <!-- Incident Type -->
                     <div class="mb-3">
                         <label for="incidentType" class="form-label">Type</label>
                         <select id="incidentType" class="form-select" required>
@@ -56,153 +151,112 @@
                             <option value="Collect">Collect</option>
                         </select>
                     </div>
+
+                    <!-- Specific Methods -->
                     <div class="mb-3">
                         <label for="specificMethods" class="form-label">Specific Methods</label>
                         <input type="text" class="form-control" id="specificMethods" placeholder="e.g. method1,method2,method3" required>
                     </div>
+
+                    <!-- From Time -->
                     <div class="mb-3">
                         <label for="fromTime" class="form-label">From Time</label>
                         <input type="datetime-local" class="form-control" id="fromTime" required>
                     </div>
+
+                    <!-- To Time -->
                     <div class="mb-3">
                         <label for="toTime" class="form-label">To Time</label>
                         <input type="datetime-local" class="form-control" id="toTime" required>
                     </div>
+
                     <button type="submit" class="btn btn-primary">Submit Incident</button>
                 </form>
             </div>
         </div>
 
-        <!-- Tab 2: Dashboard -->
-        <div id="tab-2-content" class="tab-content mt-3" style="display: none;">
+        <!-- Tab 2: Reports -->
+        <div id="tab-2" class="tab-content mt-3">
             <div class="tab-pane">
-                <h3>Select Gateway to View Incidents</h3>
-                <select id="gatewaySelect" class="form-select" onchange="updateDashboard()" required>
-                    <option value="">Select Gateway</option>
-                </select>
-                <canvas id="incidentChart" class="mt-4"></canvas>
-                <button id="downloadData" class="btn btn-success mt-3" onclick="downloadData()">Download Data as JSON</button>
+                <h4>Reports Data</h4>
+                <!-- Content dynamically shown in Tab 2 -->
+                <div id="dynamic-content"></div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-// Load the initial incidents data from the server (or local if not present)
+// Initialize incidents data
 let incidents = [];
-$.getJSON('/data.json', function(data) {
-    incidents = data.incidents || [];
-    loadGatewayNames();
+let dynamicContent = document.getElementById('dynamic-content');
+
+document.addEventListener('DOMContentLoaded', () => {
+    const fromTimeInput = document.getElementById('fromTime');
+    const toTimeInput = document.getElementById('toTime');
+    const now = new Date();
+    const minDate = now.toISOString().slice(0, 16);  // Current date in the correct format
+    fromTimeInput.setAttribute('min', minDate);  // Set minimum date to current time
+    toTimeInput.setAttribute('min', minDate);  // Set minimum date to current time
 });
 
 // Switch tabs function
 function switchTab(tab) {
+    // Hide all tabs
     document.getElementById('tab-1-content').style.display = 'none';
-    document.getElementById('tab-2-content').style.display = 'none';
+    document.getElementById('tab-2-reports').style.display = 'none';
+
+    // Show the selected tab
     document.getElementById(tab + '-content').style.display = 'block';
 
+    // Reset dynamic content only when switching to Tab 2
     if (tab === 'tab-2') {
-        loadGatewayNames(); // Load gateway names when switching to the dashboard
+        displayReportsContent();
     }
 }
 
-// Function to load gateway names from stored incidents in localStorage
-function loadGatewayNames() {
-    const gateways = [...new Set(incidents.map(incident => incident.gatewayName))];
-    const gatewaySelect = document.getElementById('gatewaySelect');
-    
-    // Clear existing options
-    gatewaySelect.innerHTML = '<option value="">Select Gateway</option>';
 
-    // Add gateway options to the select dropdown
-    gateways.forEach(gateway => {
-        const option = document.createElement('option');
-        option.value = gateway;
-        option.textContent = gateway;
-        gatewaySelect.appendChild(option);
-    });
-}
-
-// Event listener for the form submission
-document.getElementById('incidentForm').addEventListener('submit', function(event) {
+// Function to handle form submission and display content in Tab 2
+document.getElementById('incidentForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    // Collect form data
+    const incidentTypeRadio = document.querySelector('input[name="incidentTypeRadio"]:checked');
+    const incidentType = incidentTypeRadio ? incidentTypeRadio.value : '';
+    const reportedBy = document.getElementById('reportedBy').value;
     const gatewayName = document.getElementById('gatewayName').value;
-    const incidentType = document.getElementById('incidentType').value;
     const specificMethods = document.getElementById('specificMethods').value.split(',');
     const fromTime = document.getElementById('fromTime').value;
     const toTime = document.getElementById('toTime').value;
 
-    // Prepare data to be added
     const newIncident = {
-        gatewayName,
         incidentType,
+        reportedBy,
+        gatewayName,
         specificMethods,
         fromTime,
         toTime,
     };
 
-    // Add the new incident to the incidents array
     incidents.push(newIncident);
-
-    // Save the updated incidents to the JSON file (simulated as we're using the client-side)
-    saveToJSONFile(incidents);
-
-    // Notify the user
     alert('Incident added successfully!');
-    loadGatewayNames(); // Refresh the gateway select dropdown
+
+    // Display the new incident in Tab 2
+    displayReportsContent();
 });
 
-// Save the incidents data to a downloadable JSON file
-function saveToJSONFile(data) {
-    const blob = new Blob([JSON.stringify({ incidents: data }, null, 2)], { type: 'application/json' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'data.json';
-    link.click();
-}
-
-// Update the Dashboard with Gateway data
-function updateDashboard() {
-    const gatewayName = document.getElementById('gatewaySelect').value;
-    if (gatewayName) {
-        const filteredIncidents = incidents.filter(incident => incident.gatewayName === gatewayName);
-        renderTimelineChart(filteredIncidents);
-    }
-}
-
-// Render the timeline chart using Chart.js
-function renderTimelineChart(incidents) {
-    const dates = [];
-    const counts = [];
+// Function to display content dynamically in Tab 2
+function displayReportsContent() {
+    dynamicContent.innerHTML = '';  // Clear previous content
     incidents.forEach(incident => {
-        const incidentDate = new Date(incident.fromTime).toLocaleDateString();
-        const existingDateIndex = dates.indexOf(incidentDate);
-        if (existingDateIndex !== -1) {
-            counts[existingDateIndex]++;
-        } else {
-            dates.push(incidentDate);
-            counts.push(1);
-        }
-    });
-
-    const ctx = document.getElementById('incidentChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: dates,
-            datasets: [{
-                label: 'Incidents Over Time',
-                data: counts,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            }]
-        },
+        const div = document.createElement('div');
+        div.classList.add('card');
+        div.innerHTML = `
+          test
+        `;
+        dynamicContent.appendChild(div);
     });
 }
-
 </script>
+
 </body>
 </html>
