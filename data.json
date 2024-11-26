@@ -1,16 +1,1 @@
-{
-  "incidents": [
-    {
-      "incidentType": "Expected",
-      "reportedBy": "Gateway",
-      "gatewayName": "Gateway1",
-      "specificMethods": [
-        "rafa",
-        "fafa",
-        "fa"
-      ],
-      "fromTime": "2024-11-26T16:58",
-      "toTime": "2024-11-30T16:58"
-    }
-  ]
-}
+
