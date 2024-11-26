@@ -21,6 +21,17 @@
       ],
       "fromTime": "2024-11-26T14:21",
       "toTime": "2024-11-28T14:21"
+    },
+    {
+      "incidentTypeRadio": "Expected",
+      "reportedBy": "Gateway",
+      "gatewayName": "Gateway1",
+      "incidentType": "Disburse",
+      "specificMethods": [
+        "hfhf"
+      ],
+      "fromTime": "2024-11-28T14:22",
+      "toTime": "2024-11-29T14:22"
     }
   ]
 }
